@@ -47,18 +47,50 @@ references/repo-navigation.md         # how to slice a real repo into context ch
 examples/                             # a worked example
 ```
 
-## Install (Hermes)
+## Install
+
+This is a standard **[Agent Skill](https://agentskills.io)** (a folder with a
+`SKILL.md`), so it drops into Claude Code, Hermes, or any host that reads the format.
+
+### Claude Code
+
+Personal — available in every project on the machine:
 
 ```sh
-git clone https://github.com/3rectangles/code-execution-story-skill.git /tmp/ces
-mkdir -p ~/.hermes/skills/software-development/code-execution-story/references
-cp -R /tmp/ces/. ~/.hermes/skills/software-development/code-execution-story/
-rm -rf ~/.hermes/skills/software-development/code-execution-story/.git
+git clone --depth 1 https://github.com/3rectangles/code-execution-story-skill.git /tmp/ces
+mkdir -p ~/.claude/skills/code-execution-story
+cp -R /tmp/ces/SKILL.md /tmp/ces/references ~/.claude/skills/code-execution-story/
 ```
 
-Then in a session: `skill_view(name='code-execution-story')`.
+Project-scoped — lives in the repo, so the whole team gets it on next pull:
+
+```sh
+mkdir -p .claude/skills/code-execution-story
+cp -R /tmp/ces/SKILL.md /tmp/ces/references .claude/skills/code-execution-story/
+git add .claude/skills/code-execution-story && git commit -m "Add code-execution-story skill"
+```
+
+Verify with `/skills` (it should be listed), or invoke `/code-execution-story`. If
+`~/.claude/skills/` didn't exist before, restart the session once.
+
+### Hermes Agent
+
+```sh
+mkdir -p ~/.hermes/skills/software-development/code-execution-story
+cp -R /tmp/ces/SKILL.md /tmp/ces/references ~/.hermes/skills/software-development/code-execution-story/
+```
+
+Then `skill_view(name='code-execution-story')`.
+
+### Claude.ai / Desktop (no shell)
+
+Download the repo zip, then attach `SKILL.md` + `references/` to a Project or upload
+as a Skill under **Settings → Capabilities**.
 
 ## Usage
+
+In Claude Code: `/code-execution-story` (or just describe the task — it triggers on
+the description). Otherwise:
 
 > "Use the code-execution-story skill on `OrderController.createOrder` in this repo."
 

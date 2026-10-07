@@ -15,8 +15,8 @@ One flow needs one entry. Grep the framework's registration points:
 Pick the endpoint tied to the request you actually care about.
 
 ## 2. Trace with search, not by reading whole files
-1. `search_files(pattern="createOrder", target="content")` to locate the symbol.
-2. `read_file(path=..., offset=..., limit=...)` to pull ONLY the function body.
+1. Grep for the symbol to locate it. (Hermes `search_files`; Claude Code `Grep` / `Glob`.)
+2. Read ONLY the function body, using an offset/limit. (Hermes `read_file`; Claude Code `Read`.)
 3. Follow each call into the next body. Stop at external boundaries (DB driver, HTTP client, SDK, queue).
 
 ## 3. Hop ledger

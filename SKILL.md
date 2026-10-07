@@ -1,11 +1,11 @@
 ---
 name: code-execution-story
 description: "Use when reading unfamiliar code. Map calls to Mermaid flow."
-version: 1.0.0
-author: Kashish Sharma
 license: MIT
-platforms: [linux, macos, windows]
+compatibility: "Claude Code, Hermes Agent, or any Agent Skills host"
 metadata:
+  version: "1.0.0"
+  author: Kashish Sharma
   hermes:
     tags: [code-reading, reverse-engineering, mermaid, call-graph, execution-flow, debugging, onboarding]
     category: software-development
@@ -39,7 +39,8 @@ the code.
 The prompt only works once the right code slice is in context. Never dump the repo.
 - Find the entry: HTTP handler/route, `main()`, a public API method, a queue consumer, a cron, a CLI command.
   Grep the framework's registration points (`@GetMapping`/`@PostMapping`, `@KafkaListener`, `func main`, `app.get`, `if __name__ == "__main__"`, ...).
-- Trace the chain with search, not by reading whole files: `search_files` for the symbol, then `read_file` only the bodies on the chain.
+- Trace the chain with search, not by reading whole files: grep for the symbol, then read only the bodies on the chain.
+  (Hermes: `search_files` → `read_file`. Claude Code: `Grep`/`Glob` → `Read`.)
 - Slice: pull ONLY functions reachable from the entry point for THIS flow, and record each `file:line` as you go — Step 4 needs them.
 - Full retrieval recipe: `references/repo-navigation.md`.
 
