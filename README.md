@@ -94,6 +94,12 @@ the description). Otherwise:
 
 > "Use the code-execution-story skill on `OrderController.createOrder` in this repo."
 
+**No install at all?** Either point the agent at the instructions file —
+`@SKILL.md` follow this workflow for `<entry point>` (Claude Code `@`-mention, works
+without touching `~/.claude`) — or paste the whole
+[`docs/single-file-bundle.md`](docs/single-file-bundle.md) (SKILL.md + references
+inlined) into any chat, then paste your code. No clone, no install.
+
 Small prompt, big difference:
 
 ```
